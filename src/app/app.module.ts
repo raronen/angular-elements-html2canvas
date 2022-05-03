@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
   imports: [BrowserModule, BrowserAnimationsModule],
   providers: [],
   declarations: [AppComponent],
-  bootstrap: [AppComponent],
 })
 export class AppModule implements DoBootstrap {
   public constructor(private injector: Injector) {
