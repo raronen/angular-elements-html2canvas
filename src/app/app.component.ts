@@ -1,42 +1,22 @@
-import {
-  Component,
-  ElementRef,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-root',
   template: `
-  <img #image src="https://www.w3schools.com/images/lamp.jpg" alt="Lamp" width="32" height="32">
-  <br>
-  <button (click)="AddImage()">Add image to document</button>
+  <h1 #t>Title<h1>
+  <button (click)="AddImage()">Add title to document</button>
   `,
 })
 export class AppComponent {
-  @ViewChild('image') image!: ElementRef;
-  constructor(private elementRef: ElementRef) {
-    // // Convert `PopupComponent` to a custom element.
-    // const PopupElement = createCustomElement(PopupComponent, { injector });
-    // // Register the custom element with the browser.
-    // customElements.define('popup-element', PopupElement);
-    // html2canvas(document.body).then(function (canvas: any) {
-    //   document.body.appendChild(canvas);
-    // });
-  }
+  @ViewChild('t') title!: ElementRef;
+  constructor(private elementRef: ElementRef) {}
 
   public AddImage() {
     const ne = this.elementRef.nativeElement;
-    html2canvas(this.image.nativeElement).then(function (canvas: any) {
+    html2canvas(this.title.nativeElement).then(function (canvas: any) {
+      console.log(canvas);
       ne.appendChild(canvas);
-      console.log('added canvas');
     });
   }
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/
