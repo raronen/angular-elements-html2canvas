@@ -1,25 +1,32 @@
-import { Component, Injector } from '@angular/core';
-import { createCustomElement } from '@angular/elements';
-import { PopupService } from './popup.service';
-import { PopupComponent } from './popup.component';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-root',
   template: `
-    <input #input value="Message">
-    <button type="button" (click)="popup.showAsComponent(input.value)">Show as component</button>
-    <button type="button" (click)="popup.showAsElement(input.value)">Show as element</button>
+  <img #image src="https://www.w3schools.com/images/lamp.jpg" alt="Lamp" width="32" height="32">
+  <br>
+  <button (click)="AddImage()">Add image to document</button>
   `,
 })
 export class AppComponent {
-  constructor(injector: Injector, public popup: PopupService) {
-    // Convert `PopupComponent` to a custom element.
-    const PopupElement = createCustomElement(PopupComponent, {injector});
-    // Register the custom element with the browser.
-    customElements.define('popup-element', PopupElement);
+  @ViewChild('image') image!: ElementRef;
+  constructor() {
+    // // Convert `PopupComponent` to a custom element.
+    // const PopupElement = createCustomElement(PopupComponent, { injector });
+    // // Register the custom element with the browser.
+    // customElements.define('popup-element', PopupElement);
+    // html2canvas(document.body).then(function (canvas: any) {
+    //   document.body.appendChild(canvas);
+    // });
+  }
+
+  AddImage() {
+    html2canvas(this.image.nativeElement).then(function (canvas: any) {
+      document.body.appendChild(canvas);
+    });
   }
 }
-
 
 /*
 Copyright Google LLC. All Rights Reserved.
