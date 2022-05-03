@@ -1,4 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import html2canvas from 'html2canvas';
 
 @Component({
@@ -11,7 +16,7 @@ import html2canvas from 'html2canvas';
 })
 export class AppComponent {
   @ViewChild('image') image!: ElementRef;
-  constructor() {
+  constructor(private elementRef: ElementRef) {
     // // Convert `PopupComponent` to a custom element.
     // const PopupElement = createCustomElement(PopupComponent, { injector });
     // // Register the custom element with the browser.
@@ -21,9 +26,11 @@ export class AppComponent {
     // });
   }
 
-  AddImage() {
+  public AddImage() {
+    const ne = this.elementRef.nativeElement;
     html2canvas(this.image.nativeElement).then(function (canvas: any) {
-      document.body.appendChild(canvas);
+      ne.appendChild(canvas);
+      console.log('added canvas');
     });
   }
 }
